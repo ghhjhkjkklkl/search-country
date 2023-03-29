@@ -14,14 +14,15 @@ function onInputHandler(e) {
   e.preventDefault();
   let inputValue = input.value.trim();
   if (!inputValue) {
-    fetchCountries(inputValue)
-      .then(data => {
-        choseCountrys(data);
-      })
-      .catch(err => {
-        Notify.failure('Oops, there is no country with that name');
-      });
+    return;
   }
+  fetchCountries(inputValue)
+    .then(data => {
+      choseCountrys(data);
+    })
+    .catch(err => {
+      Notify.failure('Oops, there is no country with that name');
+    });
   countryList.innerHTML = '';
   countryInfo.innerHTML = '';
 }
@@ -31,15 +32,16 @@ function choseCountrys(countrysArray) {
     countryList.innerHTML = '';
     return markupCountry(countrysArray);
   }
-  if (countrys.length >= 2 && countryArray.length <= 10) {
+  if (countrysArray.length >= 2 && countryArray.length <= 10) {
     countryInfo.innerHTML = '';
-    return markupCountryItem(countrys);
+    return markupCountryItem(countrysArray);
   }
 
   return Notify.info(
     'Too many matches found. Please enter a more specific name.'
   );
 }
+console.log(choseCountrys());
 function markupCountryItem(data) {
   const markup = data
     .map(el => {
