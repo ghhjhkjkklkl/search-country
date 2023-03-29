@@ -18,6 +18,7 @@ function onInputHandler(e) {
   }
   fetchCountries(inputValue)
     .then(data => {
+      console.log(data);
       choseCountrys(data);
     })
     .catch(err => {
@@ -28,20 +29,19 @@ function onInputHandler(e) {
 }
 
 function choseCountrys(countrysArray) {
+  if (countrysArray.length > 10) {
+    Notify.info('Too many matches found. Please enter a more specific name.');
+  }
   if (countrysArray.length === 1) {
     countryList.innerHTML = '';
-    return markupCountry(countrysArray);
+    markupCountry(countrysArray);
   }
-  if (countrysArray.length >= 2 && countryArray.length <= 10) {
+  if (countrysArray.length >= 2 && countrysArray.length <= 10) {
     countryInfo.innerHTML = '';
-    return markupCountryItem(countrysArray);
+    markupCountryItem(countrysArray);
   }
-
-  return Notify.info(
-    'Too many matches found. Please enter a more specific name.'
-  );
 }
-console.log(choseCountrys());
+
 function markupCountryItem(data) {
   const markup = data
     .map(el => {
@@ -58,6 +58,7 @@ function markupCountryItem(data) {
 function markupCountry(data) {
   const markup = data
     .map(el => {
+      console.log(el.capital);
       return `<h1>
        <img src="${el.flags.svg}" alt="${
         el.name.official
