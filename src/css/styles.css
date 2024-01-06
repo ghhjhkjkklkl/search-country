@@ -12,6 +12,12 @@ body {
   line-height: 1.5;
 }
 
+label {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 5px;
+}
+
 #search-box {
   font: inherit;
   padding: 8px;
